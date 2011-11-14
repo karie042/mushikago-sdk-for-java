@@ -3,6 +3,7 @@ package org.mushikago.tombo;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +21,6 @@ public class TomboAuth {
 	private final String apiKey;
 	private final String secretKey;
 	
-	private final String serverHost;
 	private final String cryptoAlgorithm;
 	
 	public TomboAuth(Credentials credentials) {
@@ -28,38 +28,25 @@ public class TomboAuth {
 		this.apiKey = credentials.getApiKey();
 		this.secretKey = credentials.getSecretKey();
 		
-		this.serverHost = "tombo.mushikago.org";
 		this.cryptoAlgorithm = "HmacSHA256";
 	}
 	
-	public String makeRequestUrl(String httpMethod, String requestPath, TreeMap<String, String> requestParams) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-		
-		TreeMap<String, String> _requestParams = new TreeMap<String, String>();
-		_requestParams.putAll(requestParams);
-		
-		String apiKey = ParamUtils.paramEncode(this.apiKey);
-		String timestamp = ParamUtils.paramEncode(this.makeTimeStamp());
-		
-		_requestParams.put("api_key",   apiKey);
-		_requestParams.put("timestamp", timestamp);
-		
-		String data = String.format("%s\n%s\n%s\n%s", httpMethod, this.serverHost, requestPath, ParamUtils.mapToString(_requestParams));
-		String signature = this.toSignature(data);
-		
-		return String.format("http://%s%s?api_key=%s&timestamp=%s&signature=%s", this.serverHost, requestPath, apiKey, timestamp, signature);
+	public String getApiKey() {
+		return this.apiKey;
 	}
 	
-	@SuppressWarnings("deprecation")
-	private String makeTimeStamp() {
+	public String toSignature(String httpMethod, String endpoint, String requestPath, TreeMap<String, String> requestParams) throws InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
 		
-		SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		String data = String.format("%s\n%s\n%s\n%s", httpMethod, endpoint, requestPath, ParamUtils.mapToString(requestParams));
+		return this.toSignature(data);
+	}
+	
+	public String makeTimeStamp() {
+		
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-		Date date = cal.getTime();
-//		date.setTime(cal.getTimeInMillis());
-		date.setHours(cal.get(Calendar.HOUR_OF_DAY));
-		date.setDate(cal.get(Calendar.DAY_OF_MONTH));
-		return result.format(date);
-
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd'T'HH:mm:ss'Z'");
+		df.setTimeZone(cal.getTimeZone());
+		return df.format(cal.getTime());
 	}
 	
 	private String toSignature(String data) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {

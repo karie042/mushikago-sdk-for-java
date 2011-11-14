@@ -1,18 +1,16 @@
 package org.mushikago.tombo.model;
 
-public class TomboResponse {
+import net.sf.json.JSONObject;
+
+public abstract class TomboResponse {
 	
 	protected int httpStatus = -1;
 	protected String message = null;
 	
-	public TomboResponse() {
+	public TomboResponse(JSONObject json) {
 		
-	}
-	
-	public TomboResponse(TomboResponse response) {
-		
-		this.httpStatus = response.httpStatus;
-		this.message = response.message;
+		this.httpStatus = Integer.valueOf(json.getJSONObject("meta").getString("status"));
+		this.message = json.getJSONObject("meta").getString("message");
 	}
 	
 	public void setHttpStatus(int status) { this.httpStatus = status; }

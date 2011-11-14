@@ -27,6 +27,7 @@ import org.mushikago.tombo.model.delete.DeleteResponse;
 import org.mushikago.tombo.model.info.InfoException;
 import org.mushikago.tombo.model.info.InfoRequest;
 import org.mushikago.tombo.model.info.InfoResponse;
+import org.mushikago.tombo.model.TomboRequest;
 
 public class TomboClientTest {
 	
@@ -110,7 +111,7 @@ public class TomboClientTest {
 	private static aspect impl {
 		JSONObject around() :
 			cflow(execution(void TomboClientTest.testInfo())) &&
-			call(JSONObject TomboClient.httpRequest(HttpRequestBase)) {
+			call(JSONObject HttpRequestBroker.request(TomboRequest)) {
 			
 			JSONObject json = new JSONObject();
 			
@@ -130,7 +131,7 @@ public class TomboClientTest {
 		
 		JSONObject around() :
 			cflow(execution(void TomboClientTest.testDelete())) &&
-			call(JSONObject TomboClient.httpRequest(HttpRequestBase)) {
+			call(JSONObject HttpRequestBroker.request(TomboRequest)) {
 			
 			JSONObject json = new JSONObject();
 			
@@ -148,7 +149,7 @@ public class TomboClientTest {
 		
 		JSONObject around() :
 			cflow(execution(void TomboClientTest.testCapture())) &&
-			call(JSONObject TomboClient.httpRequest(HttpRequestBase)) {
+			call(JSONObject HttpRequestBroker.request(TomboRequest)) {
 			
 			JSONObject json = new JSONObject();
 			
@@ -166,7 +167,7 @@ public class TomboClientTest {
 		
 		JSONObject around() :
 			cflow(execution(void TomboClientTest.testCaptures())) &&
-			call(JSONObject TomboClient.httpRequest(HttpRequestBase)) {
+			call(JSONObject HttpRequestBroker.request(TomboRequest)) {
 			
 			JSONObject json = new JSONObject();
 			

@@ -28,7 +28,7 @@ public class TomboApiSample {
 	
 	public void capturesSample(String id) throws CapturesException {
 		
-		CapturesRequest req = new CapturesRequest(id);
+		CapturesRequest req = new CapturesRequest().withId(id);
 		CapturesResponse res = this.tombo.captures(req);
 		
 		System.out.println("http status:" + res.getHttpStatus());

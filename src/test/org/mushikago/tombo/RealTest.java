@@ -47,7 +47,7 @@ public class RealTest {
 		captureRes = tombo.capture(captureReq);
 		String id = captureRes.getId();
 		System.out.println(id);
-		capturesReq = new CapturesRequest(id);
+		capturesReq = new CapturesRequest().withId(id);
 		capturesRes = tombo.captures(capturesReq);
 		CapturesResponseDetail[] details = capturesRes.getDetails();
 		assertEquals(1, details.length);

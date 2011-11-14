@@ -18,12 +18,6 @@ public class CaptureRequestTest {
 		// ===============================================================================================
 		{
 			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=JPG, quality=80, requireThumbnail=false, tags=", new CaptureRequest(url).toString());
-			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=JPG, quality=80, requireThumbnail=false, tags=", new CaptureRequest(url, ImageFormat.JPG).toString());
-			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=80, requireThumbnail=false, tags=", new CaptureRequest(url, ImageFormat.PNG).toString());
-			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=0, requireThumbnail=false, tags=", new CaptureRequest(url, ImageFormat.PNG, 0).toString());
-			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=100, requireThumbnail=false, tags=", new CaptureRequest(url, ImageFormat.PNG, 100).toString());
-			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=100, requireThumbnail=false, tags=", new CaptureRequest(url, ImageFormat.PNG, 100, false).toString());
-			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=100, requireThumbnail=true, tags=", new CaptureRequest(url, ImageFormat.PNG, 100, true).toString());
 			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=100, requireThumbnail=true, tags=narita", new CaptureRequest(url, ImageFormat.PNG, 100, true, "narita").toString());
 			assertEquals("url=http://yahoo.co.jp/?a=1,2&b=3, fmt=PNG, quality=100, requireThumbnail=true, tags=narita,test,abc", new CaptureRequest(url, ImageFormat.PNG, 100, true, new String[] {"narita", "test", "abc"}).toString());
 		}

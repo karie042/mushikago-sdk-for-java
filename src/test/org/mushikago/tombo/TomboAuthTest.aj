@@ -22,16 +22,14 @@ public class TomboAuthTest {
 		TreeMap<String, String> params = new TreeMap<String, String>();
 		params.put("url", ParamUtils.paramEncode("http://miningbrownie.co.jp/"));
 		params.put("tag", ParamUtils.paramEncode("tokyo,japan"));
-		String url = auth.makeRequestUrl("POST", "/1/capture.json", params);
+		String apiKey = ParamUtils.paramEncode("hogehoge");
+		String timestamp = ParamUtils.paramEncode("2011-08-11T17:09:14Z");
+		params.put("api_key", apiKey);
+		params.put("timestamp", timestamp);
+		String signature = auth.toSignature("POST", "tombo.mushikago.org", "/1/capture.json", params);
+		
+		String url = String.format("http://%s%s?api_key=%s&timestamp=%s&signature=%s", "tombo.mushikago.org", "/1/capture.json", apiKey, timestamp, signature);
 		System.out.println(url);
 		assertEquals("http://tombo.mushikago.org/1/capture.json?api_key=hogehoge&timestamp=2011-08-11T17%3A09%3A14Z&signature=HJUyXAldzzOTCqWgwJQlxc75NEsF17cUtFrqQ46wBRE%3D", url);
-	}
-	
-	private static aspect impl {
-		String around() :
-			cflow(execution(void TomboAuthTest.testMakeRequestUrl())) &&
-			call( String TomboAuth.makeTimeStamp() ) {
-			return "2011-08-11T17:09:14Z";
-		}
 	}
 }

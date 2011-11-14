@@ -1,5 +1,15 @@
 package org.mushikago.tombo.model.captures;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.TreeMap;
+
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.mushikago.tombo.ParamUtils;
+import org.mushikago.tombo.TomboAuth;
+import org.mushikago.tombo.model.TomboException;
 import org.mushikago.tombo.model.TomboRequest;
 
 public class CapturesRequest extends TomboRequest {
@@ -11,28 +21,6 @@ public class CapturesRequest extends TomboRequest {
 	private String tag = null;
 	
 	public CapturesRequest() {}
-	
-	public CapturesRequest(String id) {
-		this.id = id;
-	}
-	
-	public CapturesRequest(String id, int limit) {
-		this.id = id;
-		this.limit = limit;
-	}
-	
-	public CapturesRequest(String id, int limit, int offset) {
-		this.id = id;
-		this.limit = limit;
-		this.offset = offset;
-	}
-	
-	public CapturesRequest(String id, int limit, int offset, String domain) {
-		this.id = id;
-		this.limit = limit;
-		this.offset = offset;
-		this.domain = domain;
-	}
 	
 	public CapturesRequest(String id, int limit, int offset, String domain, String tag) {
 		this.id = id;
@@ -95,5 +83,27 @@ public class CapturesRequest extends TomboRequest {
 	@Override
 	public String toString() {
 		return String.format("id=%s, limit=%s, offset=%s, domain=%s, tag=%s", this.id, this.limit, this.offset, this.domain, this.tag);
+	}
+	
+	@Override
+	public HttpRequestBase toHttpMethod(TomboAuth auth) throws TomboException {
+		
+		try {
+			TreeMap<String, String> requestParams = new TreeMap<String, String>();
+		
+			if(null != this.id) requestParams.put("id", ParamUtils.paramEncode(this.id));
+			requestParams.put("limit", ParamUtils.paramEncode(String.valueOf(this.limit)));
+			requestParams.put("offset", ParamUtils.paramEncode(String.valueOf(this.offset)));
+			if(null != this.domain) { requestParams.put("domain", ParamUtils.paramEncode(this.domain)); }
+			if(null != this.tag) { requestParams.put("tag", ParamUtils.paramEncode(this.tag)); }
+			
+			String url = this.makeRequestUrl(auth, "GET", "/1/captures.json", requestParams);
+			String getParamString = ParamUtils.mapToString(requestParams);
+			if("" != getParamString) { url = String.format("%s&%s", url, getParamString); }
+			return new HttpGet(url);
+		}
+		catch(UnsupportedEncodingException e) { throw new CapturesException(e.getMessage()); }
+		catch(InvalidKeyException e) { throw new CapturesException(e.getMessage()); }
+		catch(NoSuchAlgorithmException e) { throw new CapturesException(e.getMessage()); }
 	}
 }

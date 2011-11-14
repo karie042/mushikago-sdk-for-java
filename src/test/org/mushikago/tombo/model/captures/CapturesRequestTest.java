@@ -2,6 +2,9 @@ package org.mushikago.tombo.model.captures;
 
 import static org.junit.Assert.*;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.junit.Test;
 import org.mushikago.tombo.model.capture.CaptureRequest;
 import org.mushikago.tombo.model.capture.CaptureRequest.ImageFormat;
@@ -15,10 +18,6 @@ public class CapturesRequestTest {
 		// ===============================================================================================
 		{
 			assertEquals("id=null, limit=10, offset=0, domain=null, tag=null", new CapturesRequest().toString());
-			assertEquals("id=abcde, limit=10, offset=0, domain=null, tag=null", new CapturesRequest("abcde").toString());
-			assertEquals("id=abcde, limit=90, offset=0, domain=null, tag=null", new CapturesRequest("abcde", 90).toString());
-			assertEquals("id=abcde, limit=90, offset=50, domain=null, tag=null", new CapturesRequest("abcde", 90, 50).toString());
-			assertEquals("id=abcde, limit=90, offset=50, domain=test, tag=null", new CapturesRequest("abcde", 90, 50, "test").toString());
 			assertEquals("id=abcde, limit=90, offset=50, domain=test, tag=tagtag", new CapturesRequest("abcde", 90, 50, "test", "tagtag").toString());
 		}
 		
@@ -26,7 +25,7 @@ public class CapturesRequestTest {
 		// with系
 		// ===============================================================================================
 		{
-			CapturesRequest req = new CapturesRequest("a");
+			CapturesRequest req = new CapturesRequest();
 			assertNotSame(req, req.withId("1"));
 			assertNotSame(req, req.withLimit(1));
 			assertNotSame(req, req.withOffset(1));

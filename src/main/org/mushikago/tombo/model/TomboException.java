@@ -1,6 +1,8 @@
 package org.mushikago.tombo.model;
 
-public class TomboException extends Exception {
+public abstract class TomboException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
 	
 	public TomboException(String msg) {
 		super(msg);
