@@ -3,20 +3,21 @@ package org.mushikago.sdk.services.hotaru;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
-import org.mushikago.sdk.common.APICallException;
 import org.mushikago.sdk.common.MushikagoClient;
 import org.mushikago.sdk.common.RequestException;
 import org.mushikago.sdk.common.auth.Credentials;
 import org.mushikago.sdk.common.auth.UnauthorizedException;
 import org.mushikago.sdk.common.broker.BrokerException;
-import org.mushikago.sdk.services.hotaru.exceptions.BadRequestException;
-import org.mushikago.sdk.services.hotaru.exceptions.ConflictException;
-import org.mushikago.sdk.services.hotaru.exceptions.ForbiddenException;
-import org.mushikago.sdk.services.hotaru.exceptions.InternalServerErrorException;
-import org.mushikago.sdk.services.hotaru.exceptions.NotFoundException;
-import org.mushikago.sdk.services.hotaru.exceptions.RequestEntityTooLargeException;
-import org.mushikago.sdk.services.hotaru.exceptions.RequestURITooLongException;
-import org.mushikago.sdk.services.hotaru.exceptions.ServiceUnavailableException;
+import org.mushikago.sdk.common.exception.APICallException;
+import org.mushikago.sdk.common.exception.BadRequestException;
+import org.mushikago.sdk.common.exception.ConflictException;
+import org.mushikago.sdk.common.exception.ForbiddenException;
+import org.mushikago.sdk.common.exception.InternalErrorException;
+import org.mushikago.sdk.common.exception.InternalServerErrorException;
+import org.mushikago.sdk.common.exception.NotFoundException;
+import org.mushikago.sdk.common.exception.RequestEntityTooLargeException;
+import org.mushikago.sdk.common.exception.RequestURITooLongException;
+import org.mushikago.sdk.common.exception.ServiceUnavailableException;
 import org.mushikago.sdk.services.hotaru.model.classifier.judge.ClassifierJudgeRequest;
 import org.mushikago.sdk.services.hotaru.model.classifier.judge.ClassifierJudgeResponse;
 import org.mushikago.sdk.services.hotaru.model.collocation.create.CollocationCreateRequest;
@@ -65,7 +66,6 @@ import org.mushikago.sdk.services.hotaru.model.word.get.WordGetRequest;
 import org.mushikago.sdk.services.hotaru.model.word.get.WordGetResponse;
 import org.mushikago.sdk.services.hotaru.model.word.list.WordListRequest;
 import org.mushikago.sdk.services.hotaru.model.word.list.WordListResponse;
-import org.mushikago.sdk.services.tombo.exceptions.InternalErrorException;
 
 /**
  * hotaruAPIサーバと通信を行うクライアント。<br>
@@ -99,7 +99,6 @@ public class HotaruClient extends MushikagoClient {
    * @param json APIサーバから返ってきたレスポンス
    * @throws APICallException
    */
-  @Override
   protected void checkResponse(JSONObject json) throws APICallException {
     
     try {

@@ -1,8 +1,6 @@
 package org.mushikago.sdk.services.tombo.model.captures;
 
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.TreeMap;
 
 import org.apache.http.client.methods.HttpGet;
@@ -21,15 +19,17 @@ public class CapturesRequest extends TomboRequest {
 	private int offset = 0;
 	private String domain = null;
 	private String tag = null;
+	private String sourceUrl = null;
 	
 	public CapturesRequest() {}
 	
-	public CapturesRequest(String id, int limit, int offset, String domain, String tag) {
+	public CapturesRequest(String id, int limit, int offset, String domain, String tag, String sourceUrl) {
 		this.id = id;
 		this.limit = limit;
 		this.offset = offset;
 		this.domain = domain;
 		this.tag = tag;
+		this.sourceUrl = sourceUrl;
 	}
 	
 	public String getId() { return this.id; }
@@ -47,8 +47,14 @@ public class CapturesRequest extends TomboRequest {
 	public String getTag() { return this.tag; }
 	public void setTag(String tag) { this.tag = tag; }
 	
+	public String getSourceUrl() { return this.sourceUrl; }
+
+  public void setSourceUrl(String sourceUrl) {
+    this.sourceUrl = sourceUrl;
+  }
+
 	private CapturesRequest copy() {
-		CapturesRequest result = new CapturesRequest(this.id, this.limit, this.offset, this.domain, this.tag);
+		CapturesRequest result = new CapturesRequest(this.id, this.limit, this.offset, this.domain, this.tag, this.sourceUrl);
 		return result;
 	}
 	
@@ -82,9 +88,15 @@ public class CapturesRequest extends TomboRequest {
 		return result;
 	}
 	
+	public CapturesRequest withSourceUrl(String sourceUrl) {
+		CapturesRequest result = this.copy();
+		result.sourceUrl = sourceUrl;
+		return result;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("id=%s, limit=%s, offset=%s, domain=%s, tag=%s", this.id, this.limit, this.offset, this.domain, this.tag);
+		return String.format("id=%s, limit=%s, offset=%s, domain=%s, tag=%s, sourceUrl=%s", this.id, this.limit, this.offset, this.domain, this.tag, this.sourceUrl);
 	}
 	
 	@Override
@@ -98,8 +110,9 @@ public class CapturesRequest extends TomboRequest {
 			requestParams.put("offset", ParamUtils.paramEncode(String.valueOf(this.offset)));
 			if(null != this.domain) { requestParams.put("domain", ParamUtils.paramEncode(this.domain)); }
 			if(null != this.tag) { requestParams.put("tag", ParamUtils.paramEncode(this.tag)); }
+			if(null != this.sourceUrl) { requestParams.put("sourceUrl", ParamUtils.paramEncode(this.sourceUrl)); }
 			
-			String url = this.makeRequestUrl(auth, ci, "GET", "/1/tombo/captures.json", requestParams);
+      String url = this.makeRequestUrl(auth, ci, "GET", "/1/tombo/captures.json", requestParams);
 			String getParamString = ParamUtils.mapToString(requestParams);
 			if("" != getParamString) { url = String.format("%s&%s", url, getParamString); }
 			return new HttpGet(url);

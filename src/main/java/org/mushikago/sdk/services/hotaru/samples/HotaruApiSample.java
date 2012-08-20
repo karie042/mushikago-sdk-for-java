@@ -6,10 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.mushikago.sdk.common.APICallException;
 import org.mushikago.sdk.common.RequestException;
 import org.mushikago.sdk.common.auth.Credentials;
 import org.mushikago.sdk.common.broker.BrokerException;
+import org.mushikago.sdk.common.exception.APICallException;
 import org.mushikago.sdk.common.model.MushikagoResponse;
 import org.mushikago.sdk.services.hotaru.HotaruClient;
 import org.mushikago.sdk.services.hotaru.model.classifier.judge.ClassifierJudgeRequest;

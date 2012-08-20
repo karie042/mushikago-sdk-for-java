@@ -31,6 +31,7 @@ public class CapturesResponseDetail {
 		this.format = ImageFormat.valueOf(image.getString("image_format").toUpperCase());
 		this.quality = image.getInt("image_quality");
 		this.state = image.getString("state");
+		this.updatedAt = image.getString("updated_at");
 		
 		List<String> tags = new ArrayList<String>();
 		JSONArray _tags = image.getJSONArray("tags");
@@ -54,7 +55,8 @@ public class CapturesResponseDetail {
 	private int quality = -1;
 	private String state = null;
 	private String[] tags = null;
-	
+	private String updatedAt = null;
+
 	public String getId() { return this.id; }
 	public String getImageUrl() { return this.imageUrl; }
 	public long getImageSize() { return this.imageSize; }
@@ -65,4 +67,5 @@ public class CapturesResponseDetail {
 	public int getQuality() { return this.quality; }
 	public String getState() { return this.state; }
 	public String[] getTags() { return this.tags; }
+	public String getUpdataedAt() { return this.updatedAt; }
 }

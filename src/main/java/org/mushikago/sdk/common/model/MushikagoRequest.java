@@ -1,8 +1,9 @@
 package org.mushikago.sdk.common.model;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -13,14 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.AbstractHttpEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.mushikago.sdk.common.RequestException;
 import org.mushikago.sdk.common.auth.AuthException;
@@ -211,6 +205,22 @@ public abstract class MushikagoRequest {
     }
     catch(UnsupportedEncodingException e) { throw new RequestException(e.getMessage()); }
     catch(AuthException e) { throw new RequestException(e.getMessage()); }
+  }
+  
+  /**
+   * URIオブジェクトを作成します
+   * @param auth
+   * @param ci
+   * @param httpMethod
+   * @param targetPath
+   * @param requestParams
+   * @return
+   * @throws URISyntaxException
+   * @throws RequestException
+   */
+  protected URI buildRequestUri(MushikagoAuth auth, ConnectInfo ci, String httpMethod, String targetPath, TreeMap<String, String> requestParams) throws URISyntaxException, RequestException {
+    String url = toHttpUrl(auth, ci, httpMethod, targetPath, requestParams);
+    return new URI(url);
   }
   
   /**

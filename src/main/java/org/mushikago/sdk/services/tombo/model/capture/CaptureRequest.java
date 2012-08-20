@@ -132,7 +132,7 @@ public class CaptureRequest extends TomboRequest {
 	
 	@Override
 	public String toString() {
-		return String.format("url=%s, fmt=%s, quality=%d, requireThumbnail=%b, tags=%s, useragent=%s, delayTime=%d", this.url, this.format, this.quality, this.requireThumbnail, this.getOfficialTags(), this.userAgent, this.delayTime);
+		return String.format("url=%s, fmt=%s, quality=%d, requireThumbnail=%b, tags=%s, user_agent=%s, delayTime=%d", this.url, this.format, this.quality, this.requireThumbnail, this.getOfficialTags(), this.userAgent, this.delayTime);
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class CaptureRequest extends TomboRequest {
 			requestParams.put("thumbnail", ParamUtils.paramEncode(this.requireThumbnail ? "1" : "0"));
 			requestParams.put("tags", ParamUtils.paramEncode(this.getOfficialTags()));
 			
-			if(null != this.userAgent) { requestParams.put("useragent", ParamUtils.paramEncode(this.userAgent).replaceAll("\\+", "%20")); }
+			if(null != this.userAgent) { requestParams.put("user_agent", ParamUtils.paramEncode(this.userAgent).replaceAll("\\+", "%20")); }
 			
 			requestParams.put("delay_time", String.valueOf(this.delayTime));
 			
