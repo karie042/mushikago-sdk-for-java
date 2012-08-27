@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
+import net.sf.json.JSONArray;
+
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
@@ -31,6 +33,7 @@ public class CaptureRequest extends TomboRequest {
   private String userAgent = null;
   private int delayTime = 0;
   private int displayWidth = 0;
+  private List<Cookie> cookies = new ArrayList<Cookie>();
 
   public CaptureRequest(String url) {
     this.url = url;
@@ -135,15 +138,20 @@ public class CaptureRequest extends TomboRequest {
     this.displayWidth = displayWidth;
   }
 
+  public void addCookie(String name, String value) {
+    this.cookies.add(new Cookie(name, value));
+  }
+
   private CaptureRequest copy() {
     CaptureRequest result = new CaptureRequest(this.url);
     result.format = this.format;
     result.quality = this.quality;
     result.requireThumbnail = this.requireThumbnail;
-    result.tags = new ArrayList<String>();
+    result.tags = new ArrayList<String>(this.tags);
     result.tags.addAll(this.tags);
     result.delayTime = this.delayTime;
     result.displayWidth = this.displayWidth;
+    result.cookies = new ArrayList<Cookie>(this.cookies);
     return result;
   }
 
@@ -229,6 +237,9 @@ public class CaptureRequest extends TomboRequest {
       if (this.displayWidth > 0) {
         requestParams.put("display_width", String.valueOf(this.displayWidth));
       }
+      
+      JSONArray cookiesJson = JSONArray.fromObject(this.cookies);
+      requestParams.put("cookies", cookiesJson.toString());
 
       String url = this.makeRequestUrl(auth, ci, "POST", "/1/tombo/capture.json", requestParams);
       HttpPost post = new HttpPost(url);
