@@ -239,7 +239,7 @@ public class CaptureRequest extends TomboRequest {
       }
       
       JSONArray cookiesJson = JSONArray.fromObject(this.cookies);
-      requestParams.put("cookies", cookiesJson.toString());
+      requestParams.put("cookies", ParamUtils.paramEncode(cookiesJson.toString()));
 
       String url = this.makeRequestUrl(auth, ci, "POST", "/1/tombo/capture.json", requestParams);
       HttpPost post = new HttpPost(url);
