@@ -28,26 +28,28 @@ public class ProjectInfoRequest extends MitsubachiRequest {
 	public static final String PARAM_KEY_PROJECT_NAME = "project_name";
 	
 	/**
+	 * リクエストにtimeパラメータを指定するキー。<br>
+	 */
+	public static final String PARAM_KEY_TIME = "time";
+	
+	/**
 	 * リクエスト(project_name)。<br>
 	 */
 	private String projectName = null;
 	
 	/**
+	 * リクエスト(time)。<br>
+	 */
+	private Integer time = null;
+	
+	/**
 	 * ProjectInfoRequestを構築します。<br>
 	 */
 	public ProjectInfoRequest() {
+		
 		super();
 	}
 	
-  /**
-   * ProjectInfoRequestを構築します。<br>
-   */
-  public ProjectInfoRequest(String projectName) {
-    this();
-
-    this.projectName = projectName;
-  }
-
 	/**
 	 * プロジェクト名を設定。<br>
 	 * @param name プロジェクト名
@@ -59,7 +61,19 @@ public class ProjectInfoRequest extends MitsubachiRequest {
 	 * @return プロジェクト名
 	 */
 	public String getProjectName() { return this.projectName; }
-
+	
+	/**
+	 * 取得対象時間。<br>
+	 * @param time 時間（分）
+	 */
+	public void setTime(int time) { this.time = time; }
+	
+	/**
+	 * 取得対象時間の取得。<br>
+	 * @return 時間（分）
+	 */
+	public Integer getTime() { return this.time; }
+	
 	/**
 	 * org.apache.http.client.methods.HttpRequestBaseの作成。<br>
 	 * HttpRequestBaseの作成に失敗した場合、又は以下の必須パラメータを指定していない場合、ProjectInfoExceptionが送出されます。<br>
@@ -74,6 +88,8 @@ public class ProjectInfoRequest extends MitsubachiRequest {
 			
 			if(null == this.projectName) { throw new RequestException("ProjectNameを指定してください"); }
 			requestParams.put(PARAM_KEY_PROJECT_NAME, ParamUtils.paramEncode(this.projectName));
+			
+			if(null != this.time) requestParams.put(PARAM_KEY_TIME, ParamUtils.paramEncode(String.valueOf(this.time)));
 			
 			return this.toHttpGetMethod(auth, ci, URI_PATH, requestParams);
 		}
