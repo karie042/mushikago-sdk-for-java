@@ -3,7 +3,6 @@ package org.mushikago.sdk.services.mitsubachi.samples;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.mushikago.sdk.common.RequestException;
@@ -33,9 +32,7 @@ import org.mushikago.sdk.services.mitsubachi.model.resource.list.Resource;
 import org.mushikago.sdk.services.mitsubachi.model.resource.list.ResourceListRequest;
 import org.mushikago.sdk.services.mitsubachi.model.resource.list.ResourceListResponse;
 import org.mushikago.sdk.services.mitsubachi.model.resource.store.ResourceStoreRequest;
-import org.mushikago.sdk.services.mitsubachi.model.resource.store.ResourceStoreResponse;
 import org.mushikago.sdk.services.mitsubachi.model.script.delete.ScriptDeleteRequest;
-import org.mushikago.sdk.services.mitsubachi.model.script.delete.ScriptDeleteResponse;
 import org.mushikago.sdk.services.mitsubachi.model.script.deploy.ScriptDeployRequest;
 import org.mushikago.sdk.services.mitsubachi.model.script.get.ScriptGetRequest;
 import org.mushikago.sdk.services.mitsubachi.model.script.get.ScriptGetResponse;
@@ -114,8 +111,6 @@ public class MitsubachiApiSample {
     System.out.println(res.getStderrOut());
     System.out.println(res.getSystemLogOut());
     System.out.println(res.getLogPrefix());
-    System.out.println(res.getCount());
-    System.out.println(res.getUsage());
   }
 
   public void projectDiscontinue() throws RequestException, BrokerException, APICallException {

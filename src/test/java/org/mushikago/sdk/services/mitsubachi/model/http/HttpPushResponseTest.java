@@ -1,7 +1,7 @@
 package org.mushikago.sdk.services.mitsubachi.model.http;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import net.sf.json.JSONObject;
 
 import org.junit.Test;
