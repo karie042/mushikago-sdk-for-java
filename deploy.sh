@@ -12,7 +12,7 @@ TARGET_FILE="target/`ls target | grep 'jar-with-dependencies'`"
 
 # 成果物を格納したzipファイルを作成する
 LATEST_DIR='latest'
-ZIP_FILE='mushikago-java-sdk-2.3.zip'
+ZIP_FILE='mushikago-java-sdk-2.4.2.zip'
 rm -rf $LATEST_DIR
 rm -f $ZIP_FILE
 
