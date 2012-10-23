@@ -178,7 +178,7 @@ public class HttpFetchRequest extends HttpRequest {
       HttpRequestBase httpRequest = new HttpPost();
       String uri = makeRequestUrl(auth, ci, httpRequest.getMethod(), URI_PATH, requestParams);
       httpRequest.setURI(new URI(uri));
-      HttpEntity entity = new UrlEncodedFormEntity(rawParams, this.urlEncodingChareset);
+      HttpEntity entity = new UrlEncodedFormEntity(rawParams, "UTF-8");
       ((HttpEntityEnclosingRequestBase) httpRequest).setEntity(entity);
       return httpRequest;
     }
