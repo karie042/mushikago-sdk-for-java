@@ -54,6 +54,11 @@ public class HttpFetchRequest extends HttpRequest {
    * リクエスト(follow_redirect)。<br>
    */
   private boolean followRedirect = true;
+  
+  /**
+   * リクエストの文字コード
+   */
+  private String urlEncodingChareset = "UTF-8";
 
   /**
    * HttpFetchRequestを構築します。<br>
@@ -117,6 +122,13 @@ public class HttpFetchRequest extends HttpRequest {
   }
 
   /**
+   * URLエンコーディングのcharsetを設定
+   * @param urlEncodingChareset
+   */
+  public void setUrlEncodingChareset(String urlEncodingChareset){
+      this.urlEncodingChareset = urlEncodingChareset;
+  }
+  /**
    * org.apache.http.client.methods.HttpRequestBaseの作成。<br>
    * HttpRequestBaseの作成に失敗した場合、又は以下の必須パラメータを指定していない場合、HttpFetchExceptionが送出されます。<br>
    * ・url<br>
@@ -166,7 +178,7 @@ public class HttpFetchRequest extends HttpRequest {
       HttpRequestBase httpRequest = new HttpPost();
       String uri = makeRequestUrl(auth, ci, httpRequest.getMethod(), URI_PATH, requestParams);
       httpRequest.setURI(new URI(uri));
-      HttpEntity entity = new UrlEncodedFormEntity(rawParams, "UTF-8");
+      HttpEntity entity = new UrlEncodedFormEntity(rawParams, this.urlEncodingChareset);
       ((HttpEntityEnclosingRequestBase) httpRequest).setEntity(entity);
       return httpRequest;
     }
