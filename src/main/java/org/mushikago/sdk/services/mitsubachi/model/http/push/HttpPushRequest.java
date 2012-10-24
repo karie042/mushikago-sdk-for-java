@@ -30,208 +30,221 @@ import org.mushikago.sdk.services.mitsubachi.model.http.HttpRequest;
  */
 public class HttpPushRequest extends HttpRequest {
 
-  /**
-   * リクエスト先のパス。<br>
-   */
-  public static final String URI_PATH = "/1/mitsubachi/http/push";
+	/**
+	 * リクエスト先のパス。<br>
+	 */
+	public static final String URI_PATH = "/1/mitsubachi/http/push";
 
-  /**
-   * リクエストにfile_nameパラメータを指定するキー。<br>
-   */
-  public static final String PARAM_KEY_FILE_NAME = "file_name";
+	/**
+	 * リクエストにfile_nameパラメータを指定するキー。<br>
+	 */
+	public static final String PARAM_KEY_FILE_NAME = "file_name";
 
-  /**
-   * リクエストにfile_input_keyパラメータを指定するキー。<br>
-   */
-  public static final String PARAM_KEY_FILE_INPUT_KEY = "file_input_key";
+	/**
+	 * リクエストにfile_input_keyパラメータを指定するキー。<br>
+	 */
+	public static final String PARAM_KEY_FILE_INPUT_KEY = "file_input_key";
 
-  /**
-   * リクエストにmime_typeパラメータを指定するキー。<br>
-   */
-  public static final String PARAM_KEY_MIME_TYPE = "mime_type";
+	/**
+	 * リクエストにmime_typeパラメータを指定するキー。<br>
+	 */
+	public static final String PARAM_KEY_MIME_TYPE = "mime_type";
 
-  /**
-   * リクエスト(file_name)。<br>
-   */
-  private String fileName = null;
+	/**
+	 * リクエスト時のGETパラメータのエンコードを指定するキー。<br/>
+	 */
+	public static final String PARAM_KEY_URLENCODING_CHARSET = "enconde";
 
-  /**
-   * リクエスト(file_inputKey)。<br>
-   */
-  private String fileInputKey = null;
+	/**
+	 * リクエスト(file_name)。<br>
+	 */
+	private String fileName = null;
 
-  /**
-   * リクエスト(mime_type)。<br>
-   */
-  private String mimeType = "text/plain";
+	/**
+	 * リクエスト(file_inputKey)。<br>
+	 */
+	private String fileInputKey = null;
 
-  /**
-   * HttpPushRequestを構築します。<br>
-   */
-  public HttpPushRequest() {
+	/**
+	 * リクエスト(mime_type)。<br>
+	 */
+	private String mimeType = "text/plain";
 
-    super();
-  }
+	/**
+	 * リクエストの文字コード
+	 */
+	private String encode = "UTF-8";
 
-  /**
-   * 指定されたURL、プロジェクト名、スクリプト名を使用して、HttpPushRequestを構築します。<br>
-   * 
-   * @param url
-   *          URL
-   * @param projectName
-   *          プロジェクト名
-   * @param scriptName
-   *          スクリプト名
-   */
-  public HttpPushRequest(String url, String projectName, String scriptName) {
+	/**
+	 * HttpPushRequestを構築します。<br>
+	 */
+	public HttpPushRequest() {
 
-    super(url, projectName, scriptName);
-  }
+		super();
+	}
 
-  /**
-   * 指定されたURL、プロジェクト名、スクリプト名、送信するファイル名、ファイルインプットキーを使用して、HttpPushRequestを構築します。<br>
-   * 
-   * @param url
-   *          URL
-   * @param projectName
-   *          プロジェクト名
-   * @param scriptName
-   *          スクリプト名
-   * @param fileName
-   *          ファイル名
-   * @param fileInputKey
-   *          ファイルインプットキー
-   */
-  public HttpPushRequest(String url, String projectName, String scriptName, String fileName, String fileInputKey) {
+	/**
+	 * 指定されたURL、プロジェクト名、スクリプト名を使用して、HttpPushRequestを構築します。<br>
+	 * 
+	 * @param url
+	 *            URL
+	 * @param projectName
+	 *            プロジェクト名
+	 * @param scriptName
+	 *            スクリプト名
+	 */
+	public HttpPushRequest(String url, String projectName, String scriptName) {
 
-    this(url, projectName, scriptName);
+		super(url, projectName, scriptName);
+	}
 
-    this.fileName = fileName;
-    this.fileInputKey = fileInputKey;
-  }
+	/**
+	 * 指定されたURL、プロジェクト名、スクリプト名、送信するファイル名、ファイルインプットキーを使用して、HttpPushRequestを構築します。<br>
+	 * 
+	 * @param url
+	 *            URL
+	 * @param projectName
+	 *            プロジェクト名
+	 * @param scriptName
+	 *            スクリプト名
+	 * @param fileName
+	 *            ファイル名
+	 * @param fileInputKey
+	 *            ファイルインプットキー
+	 */
+	public HttpPushRequest(String url, String projectName, String scriptName, String fileName, String fileInputKey) {
 
-  /**
-   * ファイル名を設定。<br>
-   * 
-   * @param name
-   *          ファイル名
-   */
-  public void setFileName(String name) {
-    this.fileName = name;
-  }
+		this(url, projectName, scriptName);
 
-  /**
-   * ファイル名の取得。<br>
-   * 
-   * @return ファイル名
-   */
-  public String getFileName() {
-    return this.fileName;
-  }
+		this.fileName = fileName;
+		this.fileInputKey = fileInputKey;
+	}
 
-  /**
-   * ファイルインプットキーの設定。<br>
-   * 
-   * @param key
-   *          ファイルインプットキー
-   */
-  public void setFileInputKey(String key) {
-    this.fileInputKey = key;
-  }
+	/**
+	 * ファイル名を設定。<br>
+	 * 
+	 * @param name
+	 *            ファイル名
+	 */
+	public void setFileName(String name) {
+		this.fileName = name;
+	}
 
-  /**
-   * ファイルインプットキーの取得。<br>
-   * 
-   * @return ファイルインプットキー
-   */
-  public String getFileInputKey() {
-    return this.fileInputKey;
-  }
+	/**
+	 * ファイル名の取得。<br>
+	 * 
+	 * @return ファイル名
+	 */
+	public String getFileName() {
+		return this.fileName;
+	}
 
-  /**
-   * MIME Typeの設定。<br>
-   * 
-   * @param mimeType
-   *          MIME Type
-   */
-  public void setMimeType(String mimeType) {
-    this.mimeType = mimeType;
-  }
+	/**
+	 * ファイルインプットキーの設定。<br>
+	 * 
+	 * @param key
+	 *            ファイルインプットキー
+	 */
+	public void setFileInputKey(String key) {
+		this.fileInputKey = key;
+	}
 
-  /**
-   * MIME Typeの取得。<br>
-   * 
-   * @return MIME Type
-   */
-  public String getMimeType() {
-    return this.mimeType;
-  }
+	/**
+	 * ファイルインプットキーの取得。<br>
+	 * 
+	 * @return ファイルインプットキー
+	 */
+	public String getFileInputKey() {
+		return this.fileInputKey;
+	}
 
-  /**
-   * org.apache.http.client.methods.HttpRequestBaseの作成。<br>
-   * HttpRequestBaseの作成に失敗した場合、又は以下の必須パラメータを指定していない場合、HttpPushExceptionが送出されます。<br>
-   * ・url<br>
-   * ・projectName<br>
-   * ・scriptName<br>
-   * ・fileName<br>
-   * ・fileInputKey<br>
-   * 
-   * @throws MushikagoException
-   *           必須パラメータを指定していない場合
-   */
-  @Override
-  public HttpRequestBase toHttpMethod(MushikagoAuth auth, ConnectInfo ci) throws RequestException {
+	/**
+	 * MIME Typeの設定。<br>
+	 * 
+	 * @param mimeType
+	 *            MIME Type
+	 */
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
 
-    List<NameValuePair> rawParams = new ArrayList<NameValuePair>();
+	/**
+	 * MIME Typeの取得。<br>
+	 * 
+	 * @return MIME Type
+	 */
+	public String getMimeType() {
+		return this.mimeType;
+	}
 
-    rawParams.add(createNameValuePair(PARAM_KEY_URL, this.url, true));
-    rawParams.add(createNameValuePair(PARAM_KEY_PROJECT_NAME, this.projectName, true));
-    rawParams.add(createNameValuePair(PARAM_KEY_SCRIPT_NAME, this.scriptName, true));
-    rawParams.add(createNameValuePair(PARAM_KEY_FILE_NAME, this.fileName, true));
-    rawParams.add(createNameValuePair(PARAM_KEY_FILE_INPUT_KEY, this.fileInputKey, true));
+	/**
+	 * org.apache.http.client.methods.HttpRequestBaseの作成。<br>
+	 * HttpRequestBaseの作成に失敗した場合、又は以下の必須パラメータを指定していない場合、HttpPushExceptionが送出されます
+	 * 。<br>
+	 * ・url<br>
+	 * ・projectName<br>
+	 * ・scriptName<br>
+	 * ・fileName<br>
+	 * ・fileInputKey<br>
+	 * 
+	 * @throws MushikagoException
+	 *             必須パラメータを指定していない場合
+	 */
+	@Override
+	public HttpRequestBase toHttpMethod(MushikagoAuth auth, ConnectInfo ci) throws RequestException {
 
-    rawParams.add(createNameValuePair(PARAM_KEY_ENTITY_PARAMETER, this.toEntityParameterString()));
-    rawParams.add(createNameValuePair(PARAM_KEY_PARAMETERS, this.toParameterString()));
-    rawParams.add(createNameValuePair(PARAM_KEY_HEADER_OVERWRITE, this.toHeaderOverWriteString()));
-    rawParams.add(createNameValuePair(PARAM_KEY_MIME_TYPE, this.mimeType));
+		List<NameValuePair> rawParams = new ArrayList<NameValuePair>();
 
-    if (this.parentRequestId != null) {
-      rawParams.add(createNameValuePair(PARAM_KEY_PARENT_REQUEST_ID, this.parentRequestId));
-    }
-    if (this.groupId != null) {
-      rawParams.add(createNameValuePair(PARAM_KEY_GROUP_ID, this.groupId));
-    }
-    if (this.uniqueKey != null) {
-      rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY, this.uniqueKey));
-    }
-    if (this.uniqueKeyExpires != null) {
-      String uniqueKeyExpires = this.uniqueKeyExpires == null ? null : this.uniqueKeyExpires.toString();
-      rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY_EXPIRES, uniqueKeyExpires));
-    }
+		rawParams.add(createNameValuePair(PARAM_KEY_URL, this.url, true));
+		rawParams.add(createNameValuePair(PARAM_KEY_PROJECT_NAME, this.projectName, true));
+		rawParams.add(createNameValuePair(PARAM_KEY_SCRIPT_NAME, this.scriptName, true));
+		rawParams.add(createNameValuePair(PARAM_KEY_FILE_NAME, this.fileName, true));
+		rawParams.add(createNameValuePair(PARAM_KEY_FILE_INPUT_KEY, this.fileInputKey, true));
 
-    JSONArray cookiejarJson = JSONArray.fromObject(this.cookiejar);
-    rawParams.add(createNameValuePair(PARAM_KEY_COOKIEJAR, cookiejarJson.toString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_ENTITY_PARAMETER, this.toEntityParameterString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_PARAMETERS, this.toParameterString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_HEADER_OVERWRITE, this.toHeaderOverWriteString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_MIME_TYPE, this.mimeType));
 
-    try {
-      TreeMap<String, String> requestParams = new TreeMap<String, String>();
-      for (NameValuePair rawParam : rawParams) {
-        requestParams.put(rawParam.getName(), ParamUtils.paramEncode(rawParam.getValue()));
-      }
-      HttpRequestBase httpRequest = new HttpPost();
-      String uri = makeRequestUrl(auth, ci, httpRequest.getMethod(), URI_PATH, requestParams);
-      httpRequest.setURI(new URI(uri));
-      HttpEntity entity = new UrlEncodedFormEntity(rawParams);
-      ((HttpEntityEnclosingRequestBase) httpRequest).setEntity(entity);
-      return httpRequest;
-    }
-    catch (AuthException e) {
-      throw new RequestException(e.getMessage());
-    }
-    catch (URISyntaxException e) {
-      throw new RequestException(e.getMessage());
-    }
-    catch (UnsupportedEncodingException e) {
-      throw new RequestException(e.getMessage());
-    }
-  }
+		if (this.parentRequestId != null) {
+			rawParams.add(createNameValuePair(PARAM_KEY_PARENT_REQUEST_ID, this.parentRequestId));
+		}
+		if (this.groupId != null) {
+			rawParams.add(createNameValuePair(PARAM_KEY_GROUP_ID, this.groupId));
+		}
+		if (this.uniqueKey != null) {
+			rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY, this.uniqueKey));
+		}
+		if (this.uniqueKeyExpires != null) {
+			String uniqueKeyExpires = this.uniqueKeyExpires == null ? null : this.uniqueKeyExpires.toString();
+			rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY_EXPIRES, uniqueKeyExpires));
+		}
+
+		if (this.checkCharacterCode(this.encode)) {
+			String encode = this.encode.toString();
+			rawParams.add(createNameValuePair(PARAM_KEY_URLENCODING_CHARSET, encode));
+		}
+
+		JSONArray cookiejarJson = JSONArray.fromObject(this.cookiejar);
+		rawParams.add(createNameValuePair(PARAM_KEY_COOKIEJAR, cookiejarJson.toString()));
+
+		try {
+			TreeMap<String, String> requestParams = new TreeMap<String, String>();
+			for (NameValuePair rawParam : rawParams) {
+				requestParams.put(rawParam.getName(), ParamUtils.paramEncode(rawParam.getValue()));
+			}
+			HttpRequestBase httpRequest = new HttpPost();
+			String uri = makeRequestUrl(auth, ci, httpRequest.getMethod(), URI_PATH, requestParams);
+			httpRequest.setURI(new URI(uri));
+			HttpEntity entity = new UrlEncodedFormEntity(rawParams);
+			((HttpEntityEnclosingRequestBase) httpRequest).setEntity(entity);
+			return httpRequest;
+		} catch (AuthException e) {
+			throw new RequestException(e.getMessage());
+		} catch (URISyntaxException e) {
+			throw new RequestException(e.getMessage());
+		} catch (UnsupportedEncodingException e) {
+			throw new RequestException(e.getMessage());
+		}
+	}
 }
