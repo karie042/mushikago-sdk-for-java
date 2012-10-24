@@ -53,7 +53,7 @@ public class HttpPushRequest extends HttpRequest {
 	/**
 	 * リクエスト時のGETパラメータのエンコードを指定するキー。<br/>
 	 */
-	public static final String PARAM_KEY_URLENCODING_CHARSET = "enconde";
+	public static final String PARAM_KEY_URLENCODING_CHARSET = "encode";
 
 	/**
 	 * リクエスト(file_name)。<br>
@@ -175,6 +175,16 @@ public class HttpPushRequest extends HttpRequest {
 	 */
 	public String getMimeType() {
 		return this.mimeType;
+	}
+	
+
+	/**
+	 * URLエンコーディングのcharsetを設定
+	 * 
+	 * @param urlEncodingChareset
+	 */
+	public void setEncode(String encode) {
+		this.encode = encode;
 	}
 
 	/**

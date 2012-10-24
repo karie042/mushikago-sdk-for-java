@@ -49,7 +49,7 @@ public class HttpFetchRequest extends HttpRequest {
 	/**
 	 * リクエスト時のGETパラメータのエンコードを指定するキー。<br/>
 	 */
-	public static final String PARAM_KEY_URLENCODING_CHARSET = "enconde";
+	public static final String PARAM_KEY_URLENCODING_CHARSET = "encode";
 
 	/**
 	 * リクエスト(method)。<br>
