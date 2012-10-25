@@ -1,8 +1,8 @@
 package org.mushikago.sdk.services.mitsubachi.model.http;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -63,6 +63,20 @@ public class HttpPushRequestTest extends AbstractMitsubachiTest {
     assertThat(requestBody, containsString("%22value%22%3A%22value1%22"));
     assertThat(requestBody, containsString("%7D%5D"));
   }
+  
+
+	@Test
+	public void testWithEncodeCharset() throws Exception {
+	    HttpPushRequest request = new HttpPushRequest(URL01, PROJECT_NAME01, SCRIPT_NAME01, FILE_NAME01, File_INPUT_KEY01);
+		request.setEncode("UTF-8");
+		HttpRequestBase requestBase = request.toHttpMethod(auth, ci);
+		assertThat(requestBase, is(HttpPost.class));
+		HttpPost postMethod = (HttpPost) requestBase;
+		HttpEntity entity = postMethod.getEntity();
+		assertThat(entity, is(UrlEncodedFormEntity.class));
+		String requestBody = streamToString(entity.getContent());
+		assertThat(requestBody, containsString("encode=UTF-8"));
+	}
 
   public void testWithParentRequestIdEtc() throws Exception {
     HttpPushRequest request = new HttpPushRequest(URL01, PROJECT_NAME01, SCRIPT_NAME01, FILE_NAME01, File_INPUT_KEY01);

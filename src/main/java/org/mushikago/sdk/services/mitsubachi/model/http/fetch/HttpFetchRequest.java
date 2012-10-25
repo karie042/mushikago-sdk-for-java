@@ -28,168 +28,181 @@ import org.mushikago.sdk.services.mitsubachi.model.http.HttpRequest;
  * 
  * @author miningbrownie
  */
+
 public class HttpFetchRequest extends HttpRequest {
 
-  /**
-   * リクエスト先のパス。<br>
-   */
-  public static final String URI_PATH = "/1/mitsubachi/http/fetch";
+	/**
+	 * リクエスト先のパス。<br>
+	 */
+	public static final String URI_PATH = "/1/mitsubachi/http/fetch";
 
-  /**
-   * リクエストにmethodパラメータを指定するキー。<br>
-   */
-  public static final String PARAM_KEY_METHOD = "method";
+	/**
+	 * リクエストにmethodパラメータを指定するキー。<br>
+	 */
+	public static final String PARAM_KEY_METHOD = "method";
 
-  /**
-   * リクエストにfollow_redirectパラメータを指定するキー。<br>
-   */
-  public static final String PARAM_KEY_FOLLOW_REDIRECT = "follow_redirect";
+	/**
+	 * リクエストにfollow_redirectパラメータを指定するキー。<br>
+	 */
+	public static final String PARAM_KEY_FOLLOW_REDIRECT = "follow_redirect";
 
-  /**
-   * リクエスト(method)。<br>
-   */
-  private HttpMethod method = HttpMethod.GET;
+	/**
+	 * リクエスト時のGETパラメータのエンコードを指定するキー。<br/>
+	 */
+	public static final String PARAM_KEY_URLENCODING_CHARSET = "encode";
 
-  /**
-   * リクエスト(follow_redirect)。<br>
-   */
-  private boolean followRedirect = true;
-  
-  /**
-   * リクエストの文字コード
-   */
-  private String urlEncodingChareset = "UTF-8";
+	/**
+	 * リクエスト(method)。<br>
+	 */
+	private HttpMethod method = HttpMethod.GET;
 
-  /**
-   * HttpFetchRequestを構築します。<br>
-   */
-  public HttpFetchRequest() {
-    super();
-  }
+	/**
+	 * リクエスト(follow_redirect)。<br>
+	 */
+	private boolean followRedirect = true;
 
-  /**
-   * 指定されたURL、プロジェクト名、スクリプト名を使用して、HttpFetchRequestを構築します。<br>
-   * 
-   * @param url
-   *          URL
-   * @param projectName
-   *          プロジェクト名
-   * @param scriptName
-   *          スクリプト名
-   */
-  public HttpFetchRequest(String url, String projectName, String scriptName) {
+	/**
+	 * リクエストの文字コード
+	 */
+	private String encode = "UTF-8";
 
-    super(url, projectName, scriptName);
-  }
+	/**
+	 * HttpFetchRequestを構築します。<br>
+	 */
+	public HttpFetchRequest() {
+		super();
+	}
 
-  /**
-   * methodを設定。<br>
-   * 
-   * @param method
-   *          HTTPメソッド
-   */
-  public void setMethod(HttpMethod method) {
-    this.method = method;
-  }
+	/**
+	 * 指定されたURL、プロジェクト名、スクリプト名を使用して、HttpFetchRequestを構築します。<br>
+	 * 
+	 * @param url
+	 *            URL
+	 * @param projectName
+	 *            プロジェクト名
+	 * @param scriptName
+	 *            スクリプト名
+	 */
+	public HttpFetchRequest(String url, String projectName, String scriptName) {
 
-  /**
-   * methodを取得。<br>
-   * 
-   * @return HTTPメソッド
-   */
-  public HttpMethod getMethod() {
-    return this.method;
-  }
+		super(url, projectName, scriptName);
+	}
 
-  /**
-   * follow_redirectを取得。<br>
-   * 
-   * @return follow_redirect
-   */
-  public boolean isFollowRedirect() {
-    return this.followRedirect;
-  }
+	/**
+	 * methodを設定。<br>
+	 * 
+	 * @param method
+	 *            HTTPメソッド
+	 */
+	public void setMethod(HttpMethod method) {
+		this.method = method;
+	}
 
-  /**
-   * follow_redirectを設定。<br>
-   * trueが設定されるとリダイレクトを許可。<br>
-   * 
-   * @param follow
-   *          follow_rediret
-   */
-  public void setFollowRedirect(boolean follow) {
-    this.followRedirect = follow;
-  }
+	/**
+	 * methodを取得。<br>
+	 * 
+	 * @return HTTPメソッド
+	 */
+	public HttpMethod getMethod() {
+		return this.method;
+	}
 
-  /**
-   * URLエンコーディングのcharsetを設定
-   * @param urlEncodingChareset
-   */
-  public void setUrlEncodingChareset(String urlEncodingChareset){
-      this.urlEncodingChareset = urlEncodingChareset;
-  }
-  /**
-   * org.apache.http.client.methods.HttpRequestBaseの作成。<br>
-   * HttpRequestBaseの作成に失敗した場合、又は以下の必須パラメータを指定していない場合、HttpFetchExceptionが送出されます。<br>
-   * ・url<br>
-   * ・projectName<br>
-   * ・scriptName<br>
-   * 
-   * @throws MushikagoException
-   *           必須パラメータを指定していない場合
-   */
-  @Override
-  public HttpRequestBase toHttpMethod(MushikagoAuth auth, ConnectInfo ci) throws RequestException {
-    List<NameValuePair> rawParams = new ArrayList<NameValuePair>();
+	/**
+	 * follow_redirectを取得。<br>
+	 * 
+	 * @return follow_redirect
+	 */
+	public boolean isFollowRedirect() {
+		return this.followRedirect;
+	}
 
-    rawParams.add(createNameValuePair(PARAM_KEY_URL, this.url, true));
-    rawParams.add(createNameValuePair(PARAM_KEY_PROJECT_NAME, this.projectName, true));
-    rawParams.add(createNameValuePair(PARAM_KEY_SCRIPT_NAME, this.scriptName, true));
+	/**
+	 * follow_redirectを設定。<br>
+	 * trueが設定されるとリダイレクトを許可。<br>
+	 * 
+	 * @param follow
+	 *            follow_rediret
+	 */
+	public void setFollowRedirect(boolean follow) {
+		this.followRedirect = follow;
+	}
 
-    String followRedirectFlag = this.followRedirect ? "1" : "0";
-    rawParams.add(createNameValuePair(PARAM_KEY_FOLLOW_REDIRECT, followRedirectFlag));
-    rawParams.add(createNameValuePair(PARAM_KEY_METHOD, this.method.name()));
-    rawParams.add(createNameValuePair(PARAM_KEY_ENTITY_PARAMETER, this.toEntityParameterString()));
-    rawParams.add(createNameValuePair(PARAM_KEY_PARAMETERS, this.toParameterString()));
-    rawParams.add(createNameValuePair(PARAM_KEY_HEADER_OVERWRITE, this.toHeaderOverWriteString()));
+	/**
+	 * URLエンコーディングのcharsetを設定
+	 * 
+	 * @param urlEncodingChareset
+	 */
+	public void setEncode(String encode) {
+		this.encode = encode;
+	}
 
-    if (this.parentRequestId != null) {
-      rawParams.add(createNameValuePair(PARAM_KEY_PARENT_REQUEST_ID, this.parentRequestId));
-    }
-    if (this.groupId != null) {
-      rawParams.add(createNameValuePair(PARAM_KEY_GROUP_ID, this.groupId));
-    }
-    if (this.uniqueKey != null) {
-      rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY, this.uniqueKey));
-    }
-    if (this.uniqueKeyExpires != null) {
-      String uniqueKeyExpires = this.uniqueKeyExpires.toString();
-      rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY_EXPIRES, uniqueKeyExpires));
-    }
+	/**
+	 * org.apache.http.client.methods.HttpRequestBaseの作成。<br>
+	 * HttpRequestBaseの作成に失敗した場合、又は以下の必須パラメータを指定していない場合、
+	 * HttpFetchExceptionが送出されます。<br>
+	 * ・url<br>
+	 * ・projectName<br>
+	 * ・scriptName<br>
+	 * 
+	 * @throws MushikagoException
+	 *             必須パラメータを指定していない場合
+	 */
+	@Override
+	public HttpRequestBase toHttpMethod(MushikagoAuth auth, ConnectInfo ci) throws RequestException {
+		List<NameValuePair> rawParams = new ArrayList<NameValuePair>();
 
-    JSONArray cookiejarJson = JSONArray.fromObject(this.cookiejar);
-    rawParams.add(createNameValuePair(PARAM_KEY_COOKIEJAR, cookiejarJson.toString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_URL, this.url, true));
+		rawParams.add(createNameValuePair(PARAM_KEY_PROJECT_NAME, this.projectName, true));
+		rawParams.add(createNameValuePair(PARAM_KEY_SCRIPT_NAME, this.scriptName, true));
 
-    try {
-      TreeMap<String, String> requestParams = new TreeMap<String, String>();
-      for (NameValuePair rawParam : rawParams) {
-        requestParams.put(rawParam.getName(), ParamUtils.paramEncode(rawParam.getValue()));
-      }
-      HttpRequestBase httpRequest = new HttpPost();
-      String uri = makeRequestUrl(auth, ci, httpRequest.getMethod(), URI_PATH, requestParams);
-      httpRequest.setURI(new URI(uri));
-      HttpEntity entity = new UrlEncodedFormEntity(rawParams, "UTF-8");
-      ((HttpEntityEnclosingRequestBase) httpRequest).setEntity(entity);
-      return httpRequest;
-    }
-    catch (AuthException e) {
-      throw new RequestException(e.getMessage());
-    }
-    catch (URISyntaxException e) {
-      throw new RequestException(e.getMessage());
-    }
-    catch (UnsupportedEncodingException e) {
-      throw new RequestException(e.getMessage());
-    }
-  }
+		String followRedirectFlag = this.followRedirect ? "1" : "0";
+		rawParams.add(createNameValuePair(PARAM_KEY_FOLLOW_REDIRECT, followRedirectFlag));
+		rawParams.add(createNameValuePair(PARAM_KEY_METHOD, this.method.name()));
+		rawParams.add(createNameValuePair(PARAM_KEY_ENTITY_PARAMETER, this.toEntityParameterString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_PARAMETERS, this.toParameterString()));
+		rawParams.add(createNameValuePair(PARAM_KEY_HEADER_OVERWRITE, this.toHeaderOverWriteString()));
+
+		if (this.parentRequestId != null) {
+			rawParams.add(createNameValuePair(PARAM_KEY_PARENT_REQUEST_ID, this.parentRequestId));
+		}
+		if (this.groupId != null) {
+			rawParams.add(createNameValuePair(PARAM_KEY_GROUP_ID, this.groupId));
+		}
+		if (this.uniqueKey != null) {
+			rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY, this.uniqueKey));
+		}
+		if (this.uniqueKeyExpires != null) {
+			String uniqueKeyExpires = this.uniqueKeyExpires.toString();
+			rawParams.add(createNameValuePair(PARAM_KEY_UNIQUE_KEY_EXPIRES, uniqueKeyExpires));
+		}
+		if (this.checkCharacterCode(this.encode)) {
+			String encode = this.encode.toString();
+			rawParams.add(createNameValuePair(PARAM_KEY_URLENCODING_CHARSET, encode));
+		}
+
+		JSONArray cookiejarJson = JSONArray.fromObject(this.cookiejar);
+		rawParams.add(createNameValuePair(PARAM_KEY_COOKIEJAR, cookiejarJson.toString()));
+
+		try {
+			TreeMap<String, String> requestParams = new TreeMap<String, String>();
+			for (NameValuePair rawParam : rawParams) {
+				requestParams.put(rawParam.getName(), ParamUtils.paramEncode(rawParam.getValue()));
+			}
+			HttpRequestBase httpRequest = new HttpPost();
+			String uri = makeRequestUrl(auth, ci, httpRequest.getMethod(), URI_PATH, requestParams);
+			httpRequest.setURI(new URI(uri));
+			HttpEntity entity = new UrlEncodedFormEntity(rawParams, "UTF-8");
+			((HttpEntityEnclosingRequestBase) httpRequest).setEntity(entity);
+			return httpRequest;
+		} catch (AuthException e) {
+			throw new RequestException(e.getMessage());
+		} catch (URISyntaxException e) {
+			throw new RequestException(e.getMessage());
+		} catch (UnsupportedEncodingException e) {
+			throw new RequestException(e.getMessage());
+		}
+	}
+
+
+
 }
