@@ -25,43 +25,50 @@
     </extensions>
 
     <plugins>
-
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-javadoc-plugin</artifactId>
-<version>2.8.1</version>
-<configuration>
-<excludePackageNames>org.mushikago.sdk.services.hotaru.samples:org.mushikago.sdk.services.tombo.samples:org.mushikago.sdk.services.mitsubachi.samples</excludePackageNames>
-</configuration>
-</plugin>
-
-           <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptor>jar-with-dependencies.xml</descriptor>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>org/mushikago/sdk/services/hotaru/samples/**</exclude>
-            <exclude>org/mushikago/sdk/services/mitsubachi/samples/**</exclude>
-            <exclude>org/mushikago/sdk/services/tombo/samples/**</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			<version>2.8.1</version>
+			<configuration>
+				<excludePackageNames>org.mushikago.sdk.services.hotaru.samples:org.mushikago.sdk.services.tombo.samples:org.mushikago.sdk.services.mitsubachi.samples</excludePackageNames>
+			</configuration>
+		</plugin>
+        <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <configuration>
+                <descriptor>jar-with-dependencies.xml</descriptor>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+	    <plugin>
+	        <groupId>org.apache.maven.plugins</groupId>
+	        <artifactId>maven-compiler-plugin</artifactId>
+	        <configuration>
+	          <excludes>
+	            <exclude>org/mushikago/sdk/services/hotaru/samples/**</exclude>
+	            <exclude>org/mushikago/sdk/services/mitsubachi/samples/**</exclude>
+	            <exclude>org/mushikago/sdk/services/tombo/samples/**</exclude>
+	          </excludes>
+	      	</configuration>
+	    </plugin>
+		<plugin>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>cobertura-maven-plugin</artifactId>
+		    <configuration>
+		       <formats>
+		           <format>html</format>
+		           <format>xml</format>
+		       </formats>
+		    </configuration>
+		</plugin>
     </plugins>
   </build>
 
