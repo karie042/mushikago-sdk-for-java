@@ -53,7 +53,7 @@ public class HttpRequestBroker extends RequestBroker {
 		try {
 			HttpRequestBase method = request.toHttpMethod(this.mushikagoAuth, ci);
 			HttpClient http = new DefaultHttpClient();
-			((AbstractHttpClient) http).setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(3, false)); 
+			((AbstractHttpClient) http).setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(10, false)); 
 			log.info(String.format("request[%s],URI[%s]", request.getClass().toString(), method.getURI()));
 			
 			HttpResponse res = http.execute(method);
