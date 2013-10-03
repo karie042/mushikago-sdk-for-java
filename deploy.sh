@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# SDK version(require)
+version='2.4.4'
+
+##############################
+
 mvn package
 
 # mavenリポジトリにデプロイ
@@ -12,7 +17,7 @@ TARGET_FILE="target/`ls target | grep 'jar-with-dependencies'`"
 
 # 成果物を格納したzipファイルを作成する
 LATEST_DIR='latest'
-ZIP_FILE='mushikago-java-sdk-2.4.2.zip'
+ZIP_FILE=mushikago-java-sdk-${version}.zip
 rm -rf $LATEST_DIR
 rm -f $ZIP_FILE
 
@@ -25,7 +30,7 @@ zip -r $ZIP_FILE $LATEST_DIR
 S3_DEST_PATH='s3://mushikago.org/developer/sdk/java'
 S3_DEST_URL="$S3_DEST_PATH/$ZIP_FILE"
 echo "$ZIP_FILE -> $S3_DEST_URL"
-s3cmd put -P $ZIP_FILE $S3_DEST_URL
+#s3cmd put -P $ZIP_FILE $S3_DEST_URL
 
 echo 'mushikago java sdk upload, complete.'
 

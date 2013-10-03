@@ -10,7 +10,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.util.EntityUtils;
 import org.mushikago.sdk.common.RequestException;
 import org.mushikago.sdk.common.auth.Credentials;
@@ -51,7 +53,7 @@ public class HttpRequestBroker extends RequestBroker {
 		try {
 			HttpRequestBase method = request.toHttpMethod(this.mushikagoAuth, ci);
 			HttpClient http = new DefaultHttpClient();
-			
+			((AbstractHttpClient) http).setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(3, false)); 
 			log.info(String.format("request[%s],URI[%s]", request.getClass().toString(), method.getURI()));
 			
 			HttpResponse res = http.execute(method);
