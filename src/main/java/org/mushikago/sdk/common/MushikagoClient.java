@@ -151,6 +151,24 @@ public abstract class MushikagoClient {
   }
 
   /**
+   * Internal Error時のリトライ数を設定。<br>
+   * 
+   * @param retry
+   *          port番号
+   */
+  public void setRetryCount(int retry) {
+    this.broker.setRetryCount(retry);
+  }
+
+  /**
+   * nternal Error時のリトライ数を取得。<br>
+   * 
+   * @return ポート番号
+   */
+  public int getRetryCount() {
+    return this.broker.getRetryCount();
+  }
+  /**
    * @param json
    * @throws APICallException
    */
