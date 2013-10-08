@@ -139,5 +139,14 @@
         </repository>
     </distributionManagement>
 
+    <description>How to setup a Maven repository for S3.
+
+1. execute this command.
+mvn install:install-file -Dfile=target/mushikago-java-sdk-2.4.4.jar -DgroupId=api.domain -DartifactId=mushikago-java-sdk -Dversion=2.4.4 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
+
+2. Created in Local repository.
+M2REPO/api/domain/mushikago-java-sdk
+
+3.Upload to S3:D</description>
 </project>
 
