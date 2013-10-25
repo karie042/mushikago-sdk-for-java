@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mushikago</groupId>
     <artifactId>mushikago-java-sdk</artifactId>
-    <version>2.4.4-SNAPSHOT</version>
+    <version>2.4.4</version>
     <packaging>jar</packaging>
     <name>mushikago-java-sdk</name>
     <url>http://mushikago.org</url>
