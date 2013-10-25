@@ -16,8 +16,8 @@
     </licenses>
     <scm>
         <url>https://github.com/miningbrownie/mushikago-sdk-for-java</url>
-        <connection>scm:git:git://github.com/miningbrownie/mushikago-sdk-for-java.git</connection>
-        <developerConnection>scm:git:git://github.com/miningbrownie/mushikago-sdk-for-java.git</developerConnection>
+        <connection>scm:git:git@github.com:miningbrownie/mushikago-sdk-for-java.git</connection>
+        <developerConnection>scm:git:git@github.com:miningbrownie/mushikago-sdk-for-java.git</developerConnection>
     </scm>
     <developers>
         <developer>
